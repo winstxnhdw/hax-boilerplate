@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+    <OutDir>../bin</OutDir>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>hax</RootNamespace>
+    <ReferencePath>./References</ReferencePath>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ReferencePath)/Assembly-CSharp.dll</HintPath>
+    </Reference>
+
+    <Reference Include="UnityEngine">
+      <HintPath>$(ReferencePath)/UnityEngine.dll</HintPath>
+    </Reference>
+
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+
+    <EmbeddedResource Include="$(ReferencePath)/NuGet/lib.harmony/2.2.2/lib/net48/0Harmony.dll" />
+
+  </ItemGroup>
+
+  <Target Name="CleanBeforeRestore" BeforeTargets="Restore">
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <RemoveDir Directories="$(BaseOutputPath)" />
+    <RemoveDir Directories="$(PublishDir)" />
+    <RemoveDir Directories="$(PublishDir)../References/NuGet" />
+  </Target>
+
+</Project>
