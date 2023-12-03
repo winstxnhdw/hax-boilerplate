@@ -8,7 +8,7 @@ updates:
       timezone: Asia/Singapore
 
   - package-ecosystem: gitsubmodule
-    directory: /
+    directory: /submodules
     schedule:
       interval: weekly
       time: '18:00'
