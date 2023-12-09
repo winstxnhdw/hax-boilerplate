@@ -8,11 +8,11 @@ using HarmonyLib;
 namespace Hax;
 
 public class Loader : MonoBehaviour {
-    static GameObject HaxGameObject { get; } = new GameObject();
-    public static GameObject HaxModules { get; } = new GameObject();
+    static GameObject HaxGameObjects { get; } = new GameObject();
+    static GameObject HaxModules { get; } = new GameObject();
 
     static void AddHaxModules<T>() where T : Component => Loader.HaxModules.AddComponent<T>();
-    static void AddHaxGameObject<T>() where T : Component => Loader.HaxGameObject.AddComponent<T>();
+    static void AddHaxGameObjects<T>() where T : Component => Loader.HaxGameObjects.AddComponent<T>();
 
     static Assembly OnResolveAssembly(object _, ResolveEventArgs args) {
         Assembly assembly = Assembly.GetExecutingAssembly();
@@ -31,7 +31,7 @@ public class Loader : MonoBehaviour {
         AppDomain.CurrentDomain.AssemblyResolve += Loader.OnResolveAssembly;
 
         Loader.LoadHarmonyPatches();
-        Loader.LoadHaxGameObjects();
+        Loader.LoadHaxGameObjectss();
         Loader.LoadHaxModules();
 
         AppDomain.CurrentDomain.AssemblyResolve -= Loader.OnResolveAssembly;
@@ -47,8 +47,8 @@ public class Loader : MonoBehaviour {
         }
     }
 
-    static void LoadHaxGameObjects() {
-        DontDestroyOnLoad(Loader.HaxGameObject);
+    static void LoadHaxGameObjectss() {
+        DontDestroyOnLoad(Loader.HaxGameObjects);
     }
 
     static void LoadHaxModules() {
@@ -57,6 +57,6 @@ public class Loader : MonoBehaviour {
 
     public static void Unload() {
         Destroy(Loader.HaxModules);
-        Destroy(Loader.HaxGameObject);
+        Destroy(Loader.HaxGameObjects);
     }
 }
