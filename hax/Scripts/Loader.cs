@@ -8,8 +8,9 @@ using HarmonyLib;
 namespace Hax;
 
 public class Loader : MonoBehaviour {
-    static GameObject HaxGameObjects { get; } = new GameObject();
-    static GameObject HaxModules { get; } = new GameObject();
+    static GameObject HaxGameObjects { get; } = new();
+    static GameObject HaxModules { get; } = new();
+    static Harmony Harmony { get; } = new("winstxnhdw.hax");
 
     static void AddHaxModules<T>() where T : Component => Loader.HaxModules.AddComponent<T>();
     static void AddHaxGameObjects<T>() where T : Component => Loader.HaxGameObjects.AddComponent<T>();
@@ -39,7 +40,7 @@ public class Loader : MonoBehaviour {
 
     static void LoadHarmonyPatches() {
         try {
-            new Harmony("winstxnhdw.hax").PatchAll();
+            Loader.Harmony.PatchAll();
         }
 
         catch (HarmonyException exception) {
@@ -58,5 +59,6 @@ public class Loader : MonoBehaviour {
     public static void Unload() {
         Destroy(Loader.HaxModules);
         Destroy(Loader.HaxGameObjects);
+        Loader.Harmony.UnpatchAll();
     }
 }
