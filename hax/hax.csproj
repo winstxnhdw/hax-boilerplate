@@ -3,10 +3,15 @@
   <PropertyGroup>
 
     <OutDir>../bin</OutDir>
+    <Optimize>true</Optimize>
     <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>hax</RootNamespace>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <ReferencePath>./References</ReferencePath>
 
   </PropertyGroup>

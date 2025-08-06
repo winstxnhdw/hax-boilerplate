@@ -1,18 +1,20 @@
 using System;
 using System.IO;
 
-public static class Logger {
-    const string logFileName = "lc-hax.log";
+static class Logger {
+    const string LogFileName = "valheim-hax.log";
     static object LockObject { get; } = new();
 
-    public static void Write(string message) {
+    internal static void Write(string message) {
         lock (Logger.LockObject) {
             string timeNow = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
 
             File.AppendAllText(
-                logFileName,
+                LogFileName,
                 $"[{timeNow}] {message}{Environment.NewLine}"
             );
         }
     }
+
+    internal static void Write(Exception exception) => Logger.Write(exception.ToString());
 }

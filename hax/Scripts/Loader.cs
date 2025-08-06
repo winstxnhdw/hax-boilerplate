@@ -8,57 +8,49 @@ using HarmonyLib;
 namespace Hax;
 
 public class Loader : MonoBehaviour {
-    static GameObject HaxGameObjects { get; } = new();
-    static GameObject HaxModules { get; } = new();
-    static Harmony Harmony { get; } = new("winstxnhdw.hax");
-
+    const string HarmonyID = "winstxnhdw.valheim-hax";
+    static GameObject HaxGameObjects { get; } = new GameObject();
+    public static GameObject HaxModules { get; } = new GameObject();
+    static bool HasLoaded => Harmony.HasAnyPatches(Loader.HarmonyID);
     static void AddHaxModules<T>() where T : Component => Loader.HaxModules.AddComponent<T>();
-    static void AddHaxGameObjects<T>() where T : Component => Loader.HaxGameObjects.AddComponent<T>();
+    static void AddHaxGameObject<T>() where T : Component => Loader.HaxGameObjects.AddComponent<T>();
 
-    static Assembly OnResolveAssembly(object _, ResolveEventArgs args) {
+    static void LoadLibraries() {
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        using Stream stream = assembly.GetManifestResourceStream(
-            assembly.GetManifestResourceNames()
-                    .First(name => name.EndsWith($"{new AssemblyName(args.Name).Name}.dll"))
-        );
-
-        using MemoryStream memoryStream = new();
-        stream.CopyTo(memoryStream);
-        return Assembly.Load(memoryStream.ToArray());
+        foreach (string resourceName in assembly.GetManifestResourceNames().Where(name => name.EndsWith(".dll"))) {
+            using Stream stream = assembly.GetManifestResourceStream(resourceName);
+            using MemoryStream memoryStream = new();
+            stream.CopyTo(memoryStream);
+            _ = AppDomain.CurrentDomain.Load(memoryStream.ToArray());
+        }
     }
 
-    public static void Load() {
-        AppDomain.CurrentDomain.AssemblyResolve += Loader.OnResolveAssembly;
+    internal static void Load() {
+        Loader.LoadLibraries();
+
+        if (Loader.HasLoaded) {
+            Logger.Write("hax has already loaded!");
+            return;
+        }
 
         Loader.LoadHarmonyPatches();
-        Loader.LoadHaxGameObjectss();
-        Loader.LoadHaxModules();
-
-        AppDomain.CurrentDomain.AssemblyResolve -= Loader.OnResolveAssembly;
     }
 
     static void LoadHarmonyPatches() {
         try {
-            Loader.Harmony.PatchAll();
+            new Harmony(Loader.HarmonyID).PatchAll();
         }
 
-        catch (HarmonyException exception) {
+        catch (Exception exception) {
             Logger.Write(exception.ToString());
+            throw;
         }
     }
 
-    static void LoadHaxGameObjectss() {
-        DontDestroyOnLoad(Loader.HaxGameObjects);
-    }
-
-    static void LoadHaxModules() {
-        DontDestroyOnLoad(Loader.HaxModules);
-    }
-
-    public static void Unload() {
+    internal static void Unload() {
         Destroy(Loader.HaxModules);
         Destroy(Loader.HaxGameObjects);
-        Loader.Harmony.UnpatchAll();
+        new Harmony(Loader.HarmonyID).UnpatchAll();
     }
 }
