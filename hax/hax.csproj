@@ -26,7 +26,7 @@
       <HintPath>$(ReferencePath)/UnityEngine.dll</HintPath>
     </Reference>
 
-    <PackageReference Include="Lib.Harmony" Version="2.3.6" />
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
 
     <EmbeddedResource Include="$(ReferencePath)/NuGet/lib.harmony/2.2.2/lib/net48/0Harmony.dll" />
 
