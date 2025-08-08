@@ -1,42 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+    <PropertyGroup>
 
-    <OutDir>../bin</OutDir>
-    <Optimize>true</Optimize>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>hax</RootNamespace>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <ReferencePath>./References</ReferencePath>
+        <OutDir>../bin</OutDir>
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>hax</RootNamespace>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <ReferencePath>./References</ReferencePath>
 
-  </PropertyGroup>
+    </PropertyGroup>
 
-  <ItemGroup>
+    <ItemGroup>
 
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(ReferencePath)/Assembly-CSharp.dll</HintPath>
-    </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(ReferencePath)/Assembly-CSharp.dll</HintPath>
+        </Reference>
 
-    <Reference Include="UnityEngine">
-      <HintPath>$(ReferencePath)/UnityEngine.dll</HintPath>
-    </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(ReferencePath)/UnityEngine.dll</HintPath>
+        </Reference>
 
-    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+        <PackageReference Include="Lib.Harmony" Version="2.2.2" />
 
-    <EmbeddedResource Include="$(NuGetPackageRoot)/lib.harmony/2.2.2/lib/net48/0Harmony.dll" />
+        <EmbeddedResource Include="$(NuGetPackageRoot)/lib.harmony/2.2.2/lib/net48/0Harmony.dll" />
 
-  </ItemGroup>
+    </ItemGroup>
 
-  <Target Name="CleanBeforeRestore" BeforeTargets="Restore">
-    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-    <RemoveDir Directories="$(BaseOutputPath)" />
-    <RemoveDir Directories="$(PublishDir)" />
-    <RemoveDir Directories="$(PublishDir)../References/NuGet" />
-  </Target>
+    <Target Name="CleanBeforeRestore" BeforeTargets="Restore">
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+        <RemoveDir Directories="$(BaseOutputPath)" />
+        <RemoveDir Directories="$(PublishDir)" />
+        <RemoveDir Directories="$(PublishDir)../References/NuGet" />
+    </Target>
 
 </Project>
