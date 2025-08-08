@@ -1,17 +1,20 @@
 using System.Collections;
 using UnityObject = UnityEngine.Object;
+using UnityEngine;
 
-namespace Hax;
+class SingleObjectPool<T> where T : UnityObject {
+    internal T? Object { get; private set; }
 
-public class SingleObjectPool<T> where T : UnityObject {
-    public T? Object { get; private set; }
+    internal SingleObjectPool(MonoBehaviour self, float renewInterval = 1.0f) => self.StartCoroutine(this.RenewObject(renewInterval));
 
-    public SingleObjectPool(MonoBehaviour self, float renewInterval = 5.0f) => _ = self.StartCoroutine(this.RenewObject(renewInterval));
+    internal void Renew() => this.Object = UnityObject.FindAnyObjectByType<T>();
 
     IEnumerator RenewObject(float renewInterval) {
+        WaitForSeconds waitForRenewInterval = new(renewInterval);
+
         while (true) {
-            this.Object = UnityObject.FindObjectOfType<T>();
-            yield return new WaitForSeconds(renewInterval);
+            this.Renew();
+            yield return waitForRenewInterval;
         }
     }
 }
