@@ -79,13 +79,13 @@ public class Reflector {
 
     public T? GetInternalStaticField<T>(string variableName) => this.GetField<T>(variableName, Reflector.internalStaticField);
 
-    public Reflector? GetInternalField(string variableName) {
-        object? type = this.GetInternalField(variableName);
+    public static Reflector? GetInternalField(string variableName) {
+        object? type = GetInternalField(variableName);
         return type == null ? null : new(type);
     }
 
-    public Reflector? GetInternalStaticField(string variableName) {
-        object? type = this.GetInternalStaticField(variableName);
+    public static Reflector? GetInternalStaticField(string variableName) {
+        object? type = GetInternalStaticField(variableName);
         return type == null ? null : new(type);
     }
 
