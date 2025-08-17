@@ -4,17 +4,17 @@
     ".NETStandard,Version=v2.1": {
       "Lib.Harmony": {
         "type": "Direct",
-        "requested": "[2.3.6, )",
-        "resolved": "2.3.6",
-        "contentHash": "HqXPz33Z+R8ZDCLS5pJZthg33AMdF1bQXUbz2V7Neb9E+sMQOf4S1wquhM4pLIZFX7BZcOQubclbVreiM1+qmw==",
+        "requested": "[2.4.0, )",
+        "resolved": "2.4.0",
+        "contentHash": "8ldIV0g1plLelrD+BPFURQ2Q9rp4FLI5BV7MRvPFn2OT56qxrXFnqMBDMYNsn1uONdEY1YLB/2XPH2/iaKQqLQ==",
         "dependencies": {
-          "Lib.Harmony.Ref": "2.3.6"
+          "Lib.Harmony.Ref": "2.4.0"
         }
       },
       "Lib.Harmony.Ref": {
         "type": "Transitive",
-        "resolved": "2.3.6",
-        "contentHash": "nSaegatzPqkZBqskQ/3i8levYaHG37fKgVDDKfhbTnTO0V9/ZIpUUs6HJ1c6jsyAFxrK3klTcsfmA95JTm0y6Q==",
+        "resolved": "2.4.0",
+        "contentHash": "MXv+8noKHdi6LoPpgFRBC2mvZXgKhNffN25tcXyDyOzvDtFx2Aizmv4Vf8p2JqkdlyEzAnlLhff7ideFXoF+nw==",
         "dependencies": {
           "System.Reflection.Emit": "4.7.0"
         }
