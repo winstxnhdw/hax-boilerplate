@@ -27,7 +27,7 @@
             <HintPath>$(ReferencePath)/UnityEngine.dll</HintPath>
         </Reference>
 
-        <PackageReference Include="Lib.Harmony" Version="2.4.0" GeneratePathProperty="true" />
+        <PackageReference Include="Lib.Harmony" Version="2.4.3" GeneratePathProperty="true" />
 
         <EmbeddedResource Include="$(PkgLib_Harmony)/lib/net48/0Harmony.dll" />
 
