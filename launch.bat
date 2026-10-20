@@ -1,7 +1,8 @@
 @echo off
 
-set project_name=hax
-dotnet build %project_name% -c Release -restoreProperty:RestoreLockedMode=true
-start /wait /b ./submodules/SharpMonoInjectorCore/dist/SharpMonoInjector.exe inject -p " " -a bin/%project_name%.dll -n Hax -c Loader -m Load
+if not exist ".git" git init --initial-branch=main
 
-pause
+git remote get-url origin || git remote add origin https://github.com/winstxnhdw/hax-boilerplate.git
+git pull --rebase --autostash origin main
+dotnet publish launcher\launcher.csproj -restoreProperty:RestoreLockedMode=true
+.\launcher.exe
